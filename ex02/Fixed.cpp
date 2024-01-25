@@ -6,7 +6,7 @@
 /*   By: dcarrilh <dcarrilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:55:17 by dcarrilh          #+#    #+#             */
-/*   Updated: 2024/01/23 14:57:51 by dcarrilh         ###   ########.fr       */
+/*   Updated: 2024/01/25 14:15:39 by dcarrilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,78 @@ std::ostream& operator<<(std::ostream& os, const Fixed& fixed)
 {
   os << fixed.toFloat();
   return os;
+}
+
+bool  Fixed::operator>(const Fixed& other) const
+{
+  return _fixedPoint > other._fixedPoint;
+}
+
+bool  Fixed::operator<(const Fixed& other) const
+{
+  return _fixedPoint < other._fixedPoint;
+}
+
+bool  Fixed::operator>=(const Fixed& other) const
+{
+  return _fixedPoint >= other._fixedPoint;
+}
+
+bool  Fixed::operator<=(const Fixed& other) const
+{
+  return _fixedPoint <= other._fixedPoint;
+}
+
+bool  Fixed::operator==(const Fixed& other) const
+{
+  return _fixedPoint == other._fixedPoint;
+}
+
+bool  Fixed::operator!=(const Fixed& other) const
+{
+  return _fixedPoint != other._fixedPoint;
+}
+
+Fixed Fixed::operator+(const Fixed& other) const
+{
+  Fixed result;
+  result._fixedPoint = _fixedPoint + other._fixedPoint;
+  return result;
+}
+
+//  Fixed Fixed::operator+(const Fixed& other) const
+// {
+//   return Fixed(this->toFloat() + other.toFloat());
+// }
+
+// Fixed Fixed::operator+(const Fixed& other) const
+// {
+//   return Fixed(_fixedPoint + other._fixedPoint);
+// }
+
+Fixed Fixed::operator-(const Fixed& other) const
+{
+  Fixed result;
+  result._fixedPoint = _fixedPoint - other._fixedPoint;
+  return result;
+}
+
+Fixed Fixed::operator*(const Fixed& other) const
+{
+  Fixed result;
+  result._fixedPoint = (_fixedPoint * other._fixedPoint)/(1 << _bits);
+  return result;
+}
+
+Fixed Fixed::operator/(const Fixed& other) const
+{
+  if(other._fixedPoint == 0)
+  {
+    std::cerr << "Error: Division by 0" << std::endl;
+    return Fixed();
+  }
+  
+  Fixed result;
+  result._fixedPoint = ((_fixedPoint * 1 << _bits))/ other._fixedPoint;
+  return result;
 }
