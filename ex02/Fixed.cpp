@@ -6,7 +6,7 @@
 /*   By: dcarrilh <dcarrilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:55:17 by dcarrilh          #+#    #+#             */
-/*   Updated: 2024/01/25 14:15:39 by dcarrilh         ###   ########.fr       */
+/*   Updated: 2024/01/26 11:29:00 by dcarrilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,4 +145,51 @@ Fixed Fixed::operator/(const Fixed& other) const
   Fixed result;
   result._fixedPoint = ((_fixedPoint * 1 << _bits))/ other._fixedPoint;
   return result;
+}
+// pos
+Fixed Fixed::operator++(int)
+{
+  Fixed temp(*this);
+  _fixedPoint++;
+  return temp;
+}
+
+//pre
+Fixed& Fixed::operator++()
+{
+  _fixedPoint++;
+  return *this;
+}
+
+Fixed Fixed::operator--(int)
+{
+  Fixed temp(*this);
+  _fixedPoint--;
+  return temp;
+}
+
+Fixed& Fixed::operator--()
+{
+  _fixedPoint--;
+  return *this;
+}
+
+Fixed& Fixed::min(Fixed& one, Fixed& two)
+{
+    return (one.getRawBits() < two.getRawBits()) ? one : two;
+}
+
+const Fixed& Fixed::min(const Fixed& one, const Fixed& two)
+{
+  return (one.getRawBits() < two.getRawBits()) ? one : two;
+}
+
+Fixed& Fixed::max(Fixed& one, Fixed& two)
+{
+    return (one.getRawBits() > two.getRawBits()) ? one : two;
+}
+
+const Fixed& Fixed::max(const Fixed& one, const Fixed& two)
+{
+  return (one.getRawBits() > two.getRawBits()) ? one : two;
 }
